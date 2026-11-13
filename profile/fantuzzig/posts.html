@@ -33,3 +33,23 @@ height:169px;
   line-height: 1.6;
 }
 </style>
+<script>
+  // Adjust iframe height dynamically from inside the embedded page
+  // Listen for height updates from inside the iframe
+  window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "resize") {
+      const iframe = document.getElementsByClassName("researcherFrame");
+      if (iframe && event.data.height) {
+        iframe.style.height = event.data.height + "px";
+      }
+    }
+  }, false);
+
+function resizeIframe(iframe) {
+  if (iframe && iframe.contentWindow) {
+    setTimeout(() => {
+      iframe.contentWindow.postMessage({type:"getHeight"}, "*");
+    }, 500);
+  }
+}
+</script>
