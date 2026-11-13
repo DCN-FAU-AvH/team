@@ -114,3 +114,18 @@ height:169px;
   line-height: 1.6;
 }
 </style>
+<script>
+(function() {
+  function sendHeight() {
+    // Measures the exact rendered height of the content
+    var height = document.documentElement.scrollHeight;
+    window.parent.postMessage({ type: "dcn-resize", height: height }, "*");
+  }
+
+  // Fire on initial load and whenever text wraps (e.g., mobile resize or search filter)
+  window.addEventListener("load", sendHeight);
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(sendHeight).observe(document.body);
+  }
+})();
+</script>
