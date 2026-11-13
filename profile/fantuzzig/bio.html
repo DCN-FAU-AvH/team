@@ -1,4 +1,4 @@
-<!-- profile_section: bio -->
+<div id="dcn-content-wrapper" style="overflow: hidden;"><!-- profile_section: bio -->
 I am a W1 Professor in the Department of Mathematics at FAU, Friedrich-Alexander-Universität Erlangen-Nürnberg.<br>
 &nbsp;
 Before joining FAU, I held an Imperial College Research Fellowship in the Department of Aeronautics, where I also received a PhD and a Master Eng. in Aeronautics degrees. <br>
@@ -57,6 +57,7 @@ I am also interested in developing fast algorithms for large-scale optimization 
 <h3>Projects</h3>
 • Moment-sum-of-squares optimization for network dynamics (2026 – 2028) <br>
 • <a target="_blank" href="https://dcn.nat.fau.eu/modconflex/">DTN ModConFlex</a>. Modelling and control of flexible structures interacting with fluids (2023 – 2027) <br>
+</div>
 
 <style>
   html, body {
@@ -70,23 +71,41 @@ I am also interested in developing fast algorithms for large-scale optimization 
 
 <script>
 (function() {
+  var params = new URLSearchParams(window.location.search);
+  var frameId = params.get("frameId");
+
   function sendHeight() {
-    var height = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight
-    );
+    var wrapper = document.getElementById("dcn-content-wrapper");
+    // Measure the exact height of the content wrapper + body margins
+    var height = wrapper 
+      ? Math.ceil(wrapper.getBoundingClientRect().height) 
+      : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
     if (height > 0) {
-      window.parent.postMessage({ type: "dcn-resize", height: height }, "*");
+      window.parent.postMessage({ 
+        type: "dcn-resize", 
+        frameId: frameId, 
+        height: height 
+      }, "*");
     }
   }
 
+  // Fire at every stage of rendering so nothing gets cropped
+  window.addEventListener("DOMContentLoaded", sendHeight);
   window.addEventListener("load", sendHeight);
   window.addEventListener("resize", sendHeight);
+  
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(sendHeight);
+  }
+
+  // Fallback timers for slow network/font rendering
   setTimeout(sendHeight, 150);
   setTimeout(sendHeight, 600);
 
   if (typeof ResizeObserver !== "undefined") {
-    new ResizeObserver(sendHeight).observe(document.body);
+    var target = document.getElementById("dcn-content-wrapper") || document.body;
+    new ResizeObserver(sendHeight).observe(target);
   }
 })();
 </script>
