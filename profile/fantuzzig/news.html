@@ -1,3 +1,4 @@
+<div id="dcn-content-wrapper" style="overflow: hidden;">
 <ul style="list-style:none; padding-left:0; margin:0;">
     <li class='item' style="margin:12px 0 20px 0;"><!-- event -->
     <a href="https://dcn.nat.fau.eu/phd-thesis-defense-by-a-alcalde/" target="_blank"><img style="margin-left:0" src="https://dcn.nat.fau.eu/wp-content/uploads/FAUDCNAvH_phDthesisDefense_aAlcalde_30nov2026_img.png" /></a><br>
@@ -93,6 +94,7 @@
     <a href="https://dcn.nat.fau.eu/discovering-scaling-laws-for-heat-transport-with-convex-optimization/" target="_blank">See more</a>
     </li>
 </ul>
+</div>
 
 <style>
 ul li.item a img{
@@ -126,23 +128,41 @@ height:169px;
 
 <script>
 (function() {
+  var params = new URLSearchParams(window.location.search);
+  var frameId = params.get("frameId");
+
   function sendHeight() {
-    var height = Math.max(
-      document.body.scrollHeight,
-      document.body.offsetHeight
-    );
+    var wrapper = document.getElementById("dcn-content-wrapper");
+    // Measure the exact height of the content wrapper + body margins
+    var height = wrapper 
+      ? Math.ceil(wrapper.getBoundingClientRect().height) 
+      : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
     if (height > 0) {
-      window.parent.postMessage({ type: "dcn-resize", height: height }, "*");
+      window.parent.postMessage({ 
+        type: "dcn-resize", 
+        frameId: frameId, 
+        height: height 
+      }, "*");
     }
   }
 
+  // Fire at every stage of rendering so nothing gets cropped
+  window.addEventListener("DOMContentLoaded", sendHeight);
   window.addEventListener("load", sendHeight);
   window.addEventListener("resize", sendHeight);
+  
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(sendHeight);
+  }
+
+  // Fallback timers for slow network/font rendering
   setTimeout(sendHeight, 150);
   setTimeout(sendHeight, 600);
 
   if (typeof ResizeObserver !== "undefined") {
-    new ResizeObserver(sendHeight).observe(document.body);
+    var target = document.getElementById("dcn-content-wrapper") || document.body;
+    new ResizeObserver(sendHeight).observe(target);
   }
 })();
 </script>
