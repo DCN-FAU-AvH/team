@@ -58,16 +58,33 @@ I am also interested in developing fast algorithms for large-scale optimization 
 • Moment-sum-of-squares optimization for network dynamics (2026 – 2028) <br>
 • <a target="_blank" href="https://dcn.nat.fau.eu/modconflex/">DTN ModConFlex</a>. Modelling and control of flexible structures interacting with fluids (2023 – 2027) <br>
 
+<style>
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+</style>
+
 <script>
 (function() {
   function sendHeight() {
-    // Measures the exact rendered height of the content
-    var height = document.documentElement.scrollHeight;
-    window.parent.postMessage({ type: "dcn-resize", height: height }, "*");
+    var height = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight
+    );
+    if (height > 0) {
+      window.parent.postMessage({ type: "dcn-resize", height: height }, "*");
+    }
   }
 
-  // Fire on initial load and whenever text wraps (e.g., mobile resize or search filter)
   window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  setTimeout(sendHeight, 150);
+  setTimeout(sendHeight, 600);
+
   if (typeof ResizeObserver !== "undefined") {
     new ResizeObserver(sendHeight).observe(document.body);
   }
