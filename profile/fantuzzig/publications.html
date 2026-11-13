@@ -114,6 +114,102 @@
   </footer>
 </div>
 
+<style>
+.back-top { display: inline-block; margin-top: 6px; font-size: 0.85rem; color: var(--dcn-subtext); text-decoration: none; }
+.back-top:hover { text-decoration: underline; color: var(--dcn-blue); }
+
+ul li.item a img{
+width:300px;
+height:169px;
+}
+
+.researcher-publications-container .back-top { display: inline-block; margin-top: 6px; font-size: 0.85rem; color: var(--dcn-subtext); text-decoration: none; }
+.researcher-publications-container .back-top:hover { text-decoration: underline; color: var(--dcn-blue); }
+
+.researcher-publications-container footer.pub-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--dcn-border);
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+.researcher-publications-container footer.pub-footer a { color: var(--dcn-subtext); }
+</style>
+
+<style>
+.researcher-publications-container {
+  --dcn-blue: #05316A;
+  --dcn-blue-hover: #032042;
+  --dcn-accent: #007acc;
+  --dcn-border: #e2e8f0;
+  --dcn-text: #1a202c;
+  --dcn-subtext: #64748b;
+  font-family: system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  color: var(--dcn-text);
+  line-height: 1.6;
+}
+.researcher-publications-container .header-row { margin-bottom: 12px; }
+.researcher-publications-container h2.pub-header { font-size: 1.5rem; margin: 0 0 10px 0; color: var(--dcn-blue); font-weight: 700; }
+.researcher-publications-container #pubSearchBox {
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 680px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.researcher-publications-container #pubSearchBox:focus {
+  border-color: var(--dcn-blue);
+  box-shadow: 0 0 0 3px rgba(5, 49, 106, 0.15);
+}
+.researcher-publications-container .year-nav { margin: 1rem 0; font-size: 0.95rem; line-height: 1.8; }
+.researcher-publications-container .year-nav a { color: var(--dcn-blue); text-decoration: none; margin: 0 0.25rem; font-weight: 600; }
+.researcher-publications-container .year-nav a:hover { text-decoration: underline; color: var(--dcn-accent); }
+.researcher-publications-container hr { border: 0; border-top: 1px solid var(--dcn-border); margin: 1.5rem 0; }
+.researcher-publications-container .year-heading {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--dcn-blue);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid var(--dcn-border);
+}
+.researcher-publications-container ul.year-list { list-style: none; padding-left: 0; margin: 0 0 1.5rem 0; }
+.researcher-publications-container .pubItem {
+  margin-bottom: 0.75rem;
+  background: #f8fafc;
+  padding: 0.85rem 1.1rem;
+  border-radius: 6px;
+  border-left: 3px solid #cbd5e1;
+  transition: border-color 0.2s, background 0.2s;
+}
+.researcher-publications-container .pubItem:hover { background: #f1f5f9; border-left-color: var(--dcn-blue); }
+.researcher-publications-container .title-link,
+.researcher-publications-container .pubItem i a { color: var(--dcn-blue); text-decoration: none; font-weight: 600; }
+.researcher-publications-container .title-link:hover,
+.researcher-publications-container .pubItem i a:hover { text-decoration: underline; color: var(--dcn-accent); }
+.researcher-publications-container .pubItem a { color: var(--dcn-blue); }
+.researcher-publications-container .back-top { display: inline-block; margin-top: 6px; font-size: 0.85rem; color: var(--dcn-subtext); text-decoration: none; }
+.researcher-publications-container .back-top:hover { text-decoration: underline; color: var(--dcn-blue); }
+.researcher-publications-container .pubItem.hidden { display: none !important; }
+.researcher-publications-container footer.pub-footer {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--dcn-border);
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+.researcher-publications-container footer.pub-footer a { color: var(--dcn-subtext); }
+</style>
+
 <script>
 (function(){
   const wrapper = document.querySelector('.researcher-publications-container');
