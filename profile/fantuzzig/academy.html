@@ -1,15 +1,78 @@
-• WS 2026/27: CEP1, Mathematics for Engineers I (2026 - 2027)<br>
-• SS 26: Probability and stochastic processes (2026)<br>
-• SS 26: Polynomial optimization and applications (2026)<br>
-• SS 26: Mathematics for Engineers II (2026)<br>
-• SS 26: CEP1, Mathematics for Engineers I (2026)<br>
-• SS 26: Data-driven methods for dynamical systems (2026)<br>
-• SS 26: COA, Conic Optimization and Applications (2026)<br>
-• WS 25/26: CEP1, Mathematics for Engineers I (2025 - 2026)<br>
-• SS 25: Mathematics for Engineers II (2025)<br>
-• WS 24/25: Data-driven methods for dynamical systems (2024 - 2025)<br>
-• WS 24/25: Polynomial optimization and applications (2024 - 2025)<br>
-• WS 23/24: Data-driven methods for dynamical systems (2023 - 2024)<br>
-• WS 23/24: Polynomial optimization and applications (2023 - 2024)<br>
-• WS 22/23: Conic Optimization and Applications. Lectures and exercises (2022 - 2023)<br>
-• WS 22/23: Mathematik für Ingenieure B1. Exercise class in English (2022 - 2023)<br>
+<div id="dcn-content-wrapper" style="overflow: hidden;font-family: system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;">
+    • WS 2026/27: CEP1, Mathematics for Engineers I (2026 - 2027)<br>
+    • SS 26: Probability and stochastic processes (2026)<br>
+    • SS 26: Polynomial optimization and applications (2026)<br>
+    • SS 26: Mathematics for Engineers II (2026)<br>
+    • SS 26: CEP1, Mathematics for Engineers I (2026)<br>
+    • SS 26: Data-driven methods for dynamical systems (2026)<br>
+    • SS 26: COA, Conic Optimization and Applications (2026)<br>
+    • WS 25/26: CEP1, Mathematics for Engineers I (2025 - 2026)<br>
+    • SS 25: Mathematics for Engineers II (2025)<br>
+    • WS 24/25: Data-driven methods for dynamical systems (2024 - 2025)<br>
+    • WS 24/25: Polynomial optimization and applications (2024 - 2025)<br>
+    • WS 23/24: Data-driven methods for dynamical systems (2023 - 2024)<br>
+    • WS 23/24: Polynomial optimization and applications (2023 - 2024)<br>
+    • WS 22/23: Conic Optimization and Applications. Lectures and exercises (2022 - 2023)<br>
+    • WS 22/23: Mathematik für Ingenieure B1. Exercise class in English (2022 - 2023)<br>
+</div>
+<style>
+html, body {
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.section-academy-container{
+  --dcn-blue: #05316A;
+  --dcn-blue-hover: #032042;
+  --dcn-accent: #007acc;
+  --dcn-border: #e2e8f0;
+  --dcn-text: #1a202c;
+  --dcn-subtext: #64748b;
+  font-family: system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  color: var(--dcn-text);
+  line-height: 1.6;
+}
+</style>
+
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var frameId = params.get("frameId");
+
+  function sendHeight() {
+    var wrapper = document.getElementById("dcn-content-wrapper");
+    // Measure the exact height of the content wrapper + body margins
+    var height = wrapper 
+      ? Math.ceil(wrapper.getBoundingClientRect().height) 
+      : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+
+    if (height > 0) {
+      window.parent.postMessage({ 
+        type: "dcn-resize", 
+        frameId: frameId, 
+        height: height 
+      }, "*");
+    }
+  }
+
+  // Fire at every stage of rendering so nothing gets cropped
+  window.addEventListener("DOMContentLoaded", sendHeight);
+  window.addEventListener("load", sendHeight);
+  window.addEventListener("resize", sendHeight);
+  
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(sendHeight);
+  }
+
+  // Fallback timers for slow network/font rendering
+  setTimeout(sendHeight, 150);
+  setTimeout(sendHeight, 600);
+
+  if (typeof ResizeObserver !== "undefined") {
+    var target = document.getElementById("dcn-content-wrapper") || document.body;
+    new ResizeObserver(sendHeight).observe(target);
+  }
+})();
+</script>
