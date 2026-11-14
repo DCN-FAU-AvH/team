@@ -245,7 +245,7 @@
     });
   }
 
-  // Smooth scroll for year jump links and back to top
+  // Smooth scroll for year jump links and back to top (supports both standalone & iframe embeds)
   wrapper.addEventListener('click', function(ev) {
     const link = ev.target.closest('.year-link, .back-top');
     if (!link) return;
@@ -254,6 +254,17 @@
       const targetEl = wrapper.querySelector(targetId);
       if (targetEl) {
         ev.preventDefault();
+        if (window.parent && window.parent !== window) {
+          const offsetTop = targetId === '#pubTop'
+            ? 0
+            : Math.max(0, Math.round(targetEl.getBoundingClientRect().top));
+          window.parent.postMessage({
+            type: 'dcn-scroll',
+            frameId: getFrameId(),
+            targetId: targetId,
+            offsetTop: offsetTop
+          }, '*');
+        }
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
